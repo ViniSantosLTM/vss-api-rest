@@ -1,21 +1,19 @@
-// import { config } from 'dotenv';
-import 'dotenv/config';
-//import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 
 import { z } from 'zod';
 
-/*if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: '.env.test' });
 } else {
   dotenv.config();
-}*/
+}
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['production', 'test', 'development']).default('production'),
   PORT: z.coerce.number().default(3000),
   DATABASE_URL: z.string(),
-  //DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
-  //SECRET_KEY: z.string(),
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
+  SECRET_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
